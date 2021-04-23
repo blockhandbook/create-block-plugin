@@ -1,0 +1,66 @@
+{
+	"name": "create-block-plugin",
+	"version": "0.1.0",
+	"description": "A framework for quickly building plugins for the WordPress block editor.",
+	"author": "leeshadle",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"wordpress",
+		"gutenberg",
+		"plugin",
+		"block",
+		"framework",
+		"scaffold"
+	],
+	"homepage": "https://github.com/blockhandbook/create-block-plugin",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/blockhandbook/create-block-plugin.git"
+	},
+	"bugs": {
+		"url": "https://github.com/blockhandbook/create-block-plugin"
+	},
+	"engines": {
+		"node": ">=10",
+		"npm": ">=6.9"
+	},
+	"files": [
+		"lib"
+	],
+	"main": "index.js",
+	"bin": {
+		"create-block-plugin": "./index.js"
+	},
+	"scripts": {
+		"create-block-plugin": "node ./index.js",
+		"lerna:version": "lerna version",
+		"lerna:publish": "lerna publish"
+	},
+	"dependencies": {
+		"@octokit/auth": "^2.0.0",
+		"@octokit/rest": "^17.11.0",
+		"chalk": "^4.0.0",
+		"chalk-animation": "^1.6.0",
+		"check-node-version": "^3.1.1",
+		"clear": "^0.1.0",
+		"clui": "^0.3.6",
+		"commander": "^4.1.0",
+		"configstore": "^5.0.1",
+		"execa": "^4.0.0",
+		"figlet": "^1.4.0",
+		"inquirer": "^7.1.0",
+		"lodash": "^4.17.15",
+		"make-dir": "^3.0.0",
+		"minimist": "^1.2.5",
+		"mustache": "^4.0.0",
+		"npm-api": "^1.0.0",
+		"pascalcase": "^1.0.0",
+		"simple-git": "^2.6.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"devDependencies": {
+		"lerna": "^4.0.0"
+	}
+}
