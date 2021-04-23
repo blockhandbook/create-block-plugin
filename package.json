@@ -1,6 +1,6 @@
 {
 	"name": "create-block-plugin",
-	"version": "0.1.1",
+	"version": "0.1.64",
 	"description": "A framework for quickly building plugins for the WordPress block editor.",
 	"author": "leeshadle",
 	"license": "GPL-2.0-or-later",
@@ -62,5 +62,6 @@
 	},
 	"devDependencies": {
 		"lerna": "^4.0.0"
-	}
+	},
+	"gitHead": "b453e4f42bad7696c506eeaeaca1c5e1c7131530"
 }
