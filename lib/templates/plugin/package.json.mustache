@@ -21,13 +21,13 @@
 		"language": "eo"
 	},
 	"dependencies": {
-		"classnames": "^2.2.6"
+		"classnames": "^2.3.1"
 	},
 	"devDependencies": {
 		{{# nothin }}
 		"@blockhandbook/block-hot-loader": "^{{blockHotLoaderVersion}}",
 		{{/ nothin }}
-		"@blockhandbook/block-fast-refresh": "^{{blockFastRefreshVersion}}",
+		"block-fast-refresh": "^{{blockFastRefreshVersion}}",
 		{{#bootstrap}}
 		"@blockhandbook/bootstrap": "^{{bootstrapVersion}}",
 			{{#registerVariations}}
@@ -58,7 +58,7 @@
 			{{/registerVariations}}
 		{{/load_dynamic_blocks}}
 		{{#tailwindcss}}
-		"@blockhandbook/tailwindcss": "^{{tailwindcssVersion}}",
+		"block-tailwindcss": "^{{tailwindcssVersion}}",
 			{{#registerVariations}}
 		"@blockhandbook/tailwindcss-controls": "^{{tailwindcssControlsVersion}}",
 			{{/registerVariations}}
@@ -68,10 +68,10 @@
 				{{/registerFilters}}
 			{{/registerVariations}}
 		{{/tailwindcss}}
-		"@wordpress/env": "^2.1.0",
-		"@wordpress/scripts": "^13.0.3",
-		"bestzip": "^2.1.5",
-		"replace-in-file": "^6.1.0"
+		"@wordpress/env": "^4.0.2",
+		"@wordpress/scripts": "^14.1.1",
+		"bestzip": "^2.2.0"{{!,
+		"replace-in-file": "^6.1.0"}}
 	},
 	"scripts": {
 		"start": "npm run browser-sync{{#tailwindcss}} & npm run tailwind:watch{{/tailwindcss}}{{#bootstrap}} & npm run bootstrap:watch{{/bootstrap}}",
