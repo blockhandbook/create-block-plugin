@@ -1,0 +1,8 @@
+32 error Error: Command failed with exit code 1: git add -- package.json package-lock.json
+32 error The following paths are ignored by one of your .gitignore files:
+32 error package-lock.json
+32 error Use -f if you really want to add them.
+32 error     at makeError (/Applications/MAMP/htdocs/create-block-plugin/node_modules/@lerna/child-process/node_modules/execa/lib/error.js:59:11)
+32 error     at handlePromise (/Applications/MAMP/htdocs/create-block-plugin/node_modules/@lerna/child-process/node_modules/execa/index.js:114:26)
+32 error     at processTicksAndRejections (internal/process/task_queues.js:93:5)
+32 error     at async Promise.all (index 0)
