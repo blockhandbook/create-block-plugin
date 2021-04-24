@@ -78,7 +78,7 @@
 		"build": "wp-scripts build{{#bootstrap}} && npm run bootstrap:build{{/bootstrap}}{{#tailwindcss}} && npm run tailwind:build{{/tailwindcss}}",
 		"server:start": "npx wp-env start && npm run cli:install-gutenberg && npm run cli:permalinks",
 		"server:stop": "npx wp-env stop",
-		{{!"config:update-this-is-dangerous": "replace-in-file --configFile=./replace.config.js --regEx --verbose",}}
+		{{!"config:update-this-is-dangerou": "replace-in-file --configFile=./replace.config.js --regEx --verbose",}}
 		"server:clean": "npx wp-env clean && npm run server:stop && rm -rf node_modules wordpress vendor",
 		"server:destroy": "npx wp-env destroy",
 		"composer:generate-autoloader": "composer dump-autoload -o",
