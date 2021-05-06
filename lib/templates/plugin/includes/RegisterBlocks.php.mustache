@@ -98,6 +98,7 @@ class RegisterBlocks {
 		// Automatically register blocks.
 		// Do not register dynamic block's here, this is done directly in dynamic block .php file.
 		foreach ( $block_directories as $block ) {
+			{{#load_dynamic_blocks}}
 			$dynamic_block = false;
 
 			foreach ( glob( {{slugConstant}}_PLUGIN_PATH . "src/blocks/$block/*.php" ) as $block_file ) {
@@ -107,14 +108,12 @@ class RegisterBlocks {
 			if ( $dynamic_block ) {
 				continue;
 			}
-			$blocks[] = {{slugConstant}}_PLUGIN_SLUG . "/$block";
-		};
-
-		// Loop through $blocks array and register blocks.
-		// For reference: https://developer.wordpress.org/block-editor/tutorials/block-tutorial/writing-your-first-block-type/.
-		foreach ( $blocks as $block ) {
+			
+			{{/load_dynamic_blocks}}
+			// Register blocks.
+			// For reference: https://developer.wordpress.org/block-editor/tutorials/block-tutorial/writing-your-first-block-type/.
 			register_block_type(
-				$block,
+				{{slugConstant}}_PLUGIN_SLUG . "/$block",
 				array(
 					'style'         => {{slugConstant}}_PLUGIN_SLUG . '-block',
 					'editor_style'  => {{slugConstant}}_PLUGIN_SLUG . '-block-editor',
@@ -124,6 +123,6 @@ class RegisterBlocks {
 					'editor_script' => {{slugConstant}}_PLUGIN_SLUG . '-block-editor',
 				)
 			);
-		}
+		};
 	}
 }
