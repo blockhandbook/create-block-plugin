@@ -6,7 +6,6 @@
  * WordPress Dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { BlockControls, InspectorControls } from '@wordpress/block-editor';
 
 /**
  * Internal Dependencies
@@ -14,31 +13,22 @@ import { BlockControls, InspectorControls } from '@wordpress/block-editor';
 import metadata from './block.json';
 // import deprecated from './deprecated';
 import edit from './edit';
-import icons from './icons';
+import icon from './icon';
 import save from './save';
 import transforms from './transforms';
 import './index.scss';
 import './style.scss';
 
-const { attributes, category, editorScript, editorStyle, name, style, supports, title } = metadata;
+const { name } = metadata;
 
 const settings = {
-	title,
-	description: __( 'A starter static block.', '{{textdomain}}' ),
-	keywords: [ 'static block' ],
-	icon: icons.block,
-	category,
+	...metadata,
+	icon,
 	example: {},
-	supports,
-	styles: [],
-	attributes,
 	// deprecated,
-	transforms,
+	// transforms,
 	edit,
 	save,
-	editorScript,
-	style,
-	editorStyle,
 };
 
 export { name, settings };

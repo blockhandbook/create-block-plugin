@@ -6,11 +6,13 @@
  * WordPress Dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { RichText } from '@wordpress/block-editor';
+import { useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Internal Dependencies
  */
+ import { config } from '../../../package.json';
+ const { slug } = config;
 
 const Save = ( props ) => {
 	const {
@@ -19,10 +21,14 @@ const Save = ( props ) => {
 		},
 	} = props;
 
-	/* IMPORTANT - Wrapper classes get added to the outermost wrapper element.  If you use Fragment as wrapper then the wrapper classes don't get added to the block when saving! */
-	return(
-		<div>
-			<p>{ __( 'This is a static starter block.  This block is great for getting up and running fast.  Throw whatever html markup you want in here to start building something cool.  Edit this file in src/blocks/static-block/edit.js.', '{{textdomain}}' ) }</p>
+	return (
+		<div { ...useBlockProps.save() }>
+			<p className="text-xl border-2 rounded-xl border-solid p-10 shadow-xl">
+				{ __(
+					'This is a static starter block.  This block is great for getting up and running fast.  Throw whatever html markup you want in here to start building something cool.  Edit this file in src/blocks/static-block/edit.js.',
+					'{{textdomain}}'
+				) }
+			</p>
 		</div>
 	);
 };
