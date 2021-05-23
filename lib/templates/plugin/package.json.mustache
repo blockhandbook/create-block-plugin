@@ -70,12 +70,13 @@
 		{{/tailwindcss}}
 		"@wordpress/env": "^4.0.3",
 		"@wordpress/scripts": "^15.0.1",
-		"bestzip": "^2.2.0"{{!,
-		"replace-in-file": "^6.1.0"}}
+		"bestzip": "^2.2.0",
+		"replace-in-file": "^6.1.0"
 	},
 	"scripts": {
 		"start": "npm run browser-sync{{#tailwindcss}} & npm run tailwind:watch{{/tailwindcss}}{{#bootstrap}} & npm run bootstrap:watch{{/bootstrap}}",
 		"build": "wp-scripts build{{#bootstrap}} && npm run bootstrap:build{{/bootstrap}}{{#tailwindcss}} && npm run tailwind:build{{/tailwindcss}}",
+		"publish": "npm run build && npm run publish:increment-version && git add . && git push --tags",
 		"server:start": "npx wp-env start && npm run cli:install-gutenberg && npm run cli:permalinks",
 		"server:stop": "npx wp-env stop",
 		{{!"config:update-this-is-dangerou": "replace-in-file --configFile=./replace.config.js --regEx --verbose",}}
@@ -101,10 +102,13 @@
 		"browser-sync": "browser-sync start --config ./bs-config.js",
 		"cli:install-gutenberg": "npx wp-env run cli wp plugin install gutenberg && npx wp-env run cli wp plugin activate gutenberg",
 		"cli:permalinks": "npx wp-env run cli wp rewrite structure /%postname%/ --hard",
+		"publish:increment-version": "replace-in-file --configFile=./replace.config.js --regEx --verbose",
 		"server:setup": "npm run setup && npm run server:start",
+		{{#hide}}
 		"plugin:increment-version": "replace-in-file --configFile=./replace.config.js --regEx --verbose",
 		"version": "npm run build && npm run plugin:increment-version && git add .",
 		"postversion": "git push --tags",
+		{{/hide}}
 		"setup": "composer install && npm run composer:generate-autoloader && npm install && npm run build",
 		{{#bootstrap}}
 		"bootstrap:build": "npm run bootstrap:compile && npm run bootstrap:purge && npm run bootstrap:prepend && npm run bootstrap:prefix",
