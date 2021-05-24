@@ -4,13 +4,16 @@
  * Tailwind styles get applied and enqueued on both the front of your
  * site and in the editor.
  *
- * All styles get prepended with a custom namespace so Tailwind styles
- * don't bleed into the rest of the site.
+ * We use the tailwindcss important selector strategy
+ * ( https://tailwindcss.com/docs/configuration#selector-strategy )
+ * which will prefix all of your utilities with a selector that
+ * includes your plugin slug.
  *
  * i.e. - If your plugin slug is 'test-test' then all Tailwind styles
- * will be prepended with [class*="test-test"].
+ * will be prefixed with the class [class*="wp-block-test-test"] so the utility
+ * .p-10 would look like this [class*="wp-block-test-test"] .p-10
  *
- * You can edit the prepended selector in the root postcss.config.js file
+ * You can edit the prefixed selector in the root tailwind.config.js file
 */
 
 /* @tailwind base; */
