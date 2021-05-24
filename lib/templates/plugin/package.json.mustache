@@ -76,7 +76,7 @@
 	"scripts": {
 		"start": "npm run browser-sync{{#tailwindcss}} & npm run tailwind:watch{{/tailwindcss}}{{#bootstrap}} & npm run bootstrap:watch{{/bootstrap}}",
 		"build": "wp-scripts build{{#bootstrap}} && npm run bootstrap:build{{/bootstrap}}{{#tailwindcss}} && npm run tailwind:build{{/tailwindcss}}",
-		"publish": "npm run build && npm run publish:increment-version && git add . && git push --tags",
+		"publish": "npm run build && npm run publish:increment-version && git add . && git tag $npm_package_version -m 'Plugin update.' && git push --tags",
 		"server:start": "npx wp-env start && npm run cli:install-gutenberg && npm run cli:permalinks",
 		"server:stop": "npx wp-env stop",
 		{{!"config:update-this-is-dangerou": "replace-in-file --configFile=./replace.config.js --regEx --verbose",}}
