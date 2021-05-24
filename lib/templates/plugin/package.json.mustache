@@ -80,7 +80,7 @@
 		"server:start": "npx wp-env start && npm run cli:install-gutenberg && npm run cli:permalinks",
 		"server:stop": "npx wp-env stop",
 		{{!"config:update-this-is-dangerou": "replace-in-file --configFile=./replace.config.js --regEx --verbose",}}
-		"server:clean": "npx wp-env clean && npm run server:stop && rm -rf node_modules wordpress vendor",
+		"server:clean": "npx wp-env clean",
 		"server:destroy": "npx wp-env destroy",
 		"composer:generate-autoloader": "composer dump-autoload -o",
 		"format:js": "wp-scripts format-js",
