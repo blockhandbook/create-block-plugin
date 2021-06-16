@@ -6,6 +6,8 @@ Quickly generate block-based WordPress plugins from the command line.
 
 ## Usage
 
+Run:
+
 ```bash
 npx create-block-plugin
 ```

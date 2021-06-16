@@ -7,14 +7,15 @@ import classnames from 'classnames';
  * WordPress Dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { compose } from '@wordpress/compose';
 import { RichText } from '@wordpress/block-editor';
-import { withSelect } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
+import { PanelBody, SelectControl, ToggleControl } from '@wordpress/components';
+import { FontSizePicker, BlockControls, InspectorControls } from '@wordpress/block-editor';
 
 /**
  * Internal Dependencies
  */
-import Controls from './controls';
 import { config } from '../../../package.json';
 const { slug } = config;
 
@@ -23,14 +24,26 @@ const { slug } = config;
  */
 
 const Edit = ( props ) => {
+	const { pluginSettings } = useSelect(
+		( select ) => {
+			const pluginSettings = select(
+				`${ slug }/settings`
+			).getPluginSettings();
+			return {
+				pluginSettings,
+			};
+	} );
+
 	const {
-		attributes,
+		configuration: {
+			defaultTagName,
+			defaultFontSize
+		}
+	} = pluginSettings;
+
+	const {
 		setAttributes,
 		className,
-		defaults: {
-			defaultFontSize,
-			defaultTagName,
-		},
 		attributes: {
 			// put attribute key names here to use them
 			content,
@@ -41,17 +54,67 @@ const Edit = ( props ) => {
 		},
 	} = props;
 
-	setAttributes( { defaultFontSize, defaultTagName } );
+	// Need to useEffect to setAttributes for defaultFontSize and defaultTagName
+	// We do this in case the default gets changed and we need to pass it along to the save function b/c we can't use hooks in the save function
+	useEffect( () => {
+		setAttributes( { defaultFontSize, defaultTagName } );
+	} );
 
 	return (
 		<div className={ className }>
-			<Controls
-				className={ className }
-				attributes={ attributes }
-				setAttributes={ setAttributes }
-			/>
+			<BlockControls></BlockControls>
+			<InspectorControls>
+				<PanelBody title={ __( 'Settings', 'sidebar' ) } className="blocks-font-size">
+					{
+						! useDefaultFontSize &&
+						<FontSizePicker
+						value={ fontSize }
+						onChange={ ( size ) => {
+							if( ! size ) {
+								size = defaultFontSize;
+							}
+							setAttributes( { fontSize: size } ) } }
+						/>
+					}
+					<ToggleControl
+						label={ `Use default font size ${ useDefaultFontSize ? defaultFontSize : '' }${ useDefaultFontSize ? 'px' : '' }` }
+						checked={ useDefaultFontSize }
+						onChange={ () => setAttributes( { useDefaultFontSize: ! useDefaultFontSize } ) }
+					/>
+					{
+						! useDefaultTagName &&
+						<SelectControl
+							label={ __( 'HTML tag type', 'sidebar' ) }
+							value={ tagName }
+							onChange={ ( tagName ) => setAttributes( { tagName } ) }
+							options={
+								[
+									{ value: 'p', label: __( 'p', 'sidebar' ) },
+									{ value: 'h1', label: __( 'h1', 'sidebar' ) },
+									{ value: 'h2', label: __( 'h2', 'sidebar' ) },
+									{ value: 'h3', label: __( 'h3', 'sidebar' ) },
+									{ value: 'h4', label: __( 'h4', 'sidebar' ) },
+									{ value: 'h5', label: __( 'h5', 'sidebar' ) },
+									{ value: 'h6', label: __( 'h6', 'sidebar' ) },
+									{ value: 'div', label: __( 'div', 'sidebar' ) },
+								]
+							}
+						/>
+					}
+					<ToggleControl
+						label={ `Use default ${ useDefaultTagName && !! defaultTagName ? defaultTagName : 'p' } tag` }
+						checked={ useDefaultTagName }
+						onChange={ () => {
+							setAttributes( {
+								useDefaultTagName: ! useDefaultTagName,
+								tagName: !! defaultTagName ? defaultTagName : 'p'
+								} );
+						}	}
+					/>
+				</PanelBody>
+			</InspectorControls>
 			<RichText
-				tagName={ useDefaultTagName ? defaultTagName : tagName }
+				tagName={ useDefaultTagName && !! defaultTagName ? defaultTagName : tagName }
 				style={ useDefaultFontSize ? { fontSize: defaultFontSize } : { fontSize } }
 				value={ content }
 				onChange={ ( content ) => setAttributes( { content } ) }
@@ -64,16 +127,4 @@ const Edit = ( props ) => {
 	);
 }
 
-const EditWithCompose = compose(
-	[
-		withSelect( ( select, props ) => {
-			const pluginSettings = select( `${ slug }/settings` ).getPluginSettings();
-			// Need editor settings? Here they are:
-			// const editorSettings = select( `core/editor` ).getEditorSettings();
-			// console.log( editorSettings );
-			return { ...props, ...pluginSettings };
-		} ),
-	]
-)( Edit );
-
-export default EditWithCompose;
+export default Edit;

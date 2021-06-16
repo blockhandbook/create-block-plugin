@@ -90,7 +90,6 @@ class RegisterBlocks {
 			true
 		);
 
-		$blocks            = array();
 		$block_directories = scandir( {{slugConstant}}_PLUGIN_PATH . 'src/blocks/' );
 		// Using scandir picks up . & .. in linux environments, here we're cleaning the array of $block_directories.
 		$block_directories = array_diff( $block_directories, array( '..', '.', '.DS_Store' ) );

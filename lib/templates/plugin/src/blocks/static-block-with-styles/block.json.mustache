@@ -1,14 +1,30 @@
 {
+	"apiVersion": 2,
 	"name": "{{slug}}/static-block-with-styles",
 	"title": "Static Block with Styles",
 	"category": "{{slug}}",
 	"attributes": {
-
+		"align": {
+			"type": "string",
+			"default": "default"
+		}
 	},
-	"editorScript": "file:../../../build/index.js",
-	"style": "file:../../../build/style-index.css",
-	"editorStyle": "file:../../../build/index.css",
+	"styles": [
+		{
+			"name": "default",
+			"label": "Default",
+			"isDefault": true
+		},
+		{
+			"name": "light",
+			"label": "Light"
+		},
+		{
+			"name": "dark",
+			"label": "Dark"
+		}
+	],
 	"supports": {
-
+		"align": [ "wide", "full" ]
 	}
 }

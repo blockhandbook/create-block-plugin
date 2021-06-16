@@ -6,13 +6,12 @@
  * WordPress Dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Internal Dependencies
  */
-import './editor.scss';
-import './style.scss';
-import { attributes, name } from './block.json';
+import { attributes } from './block.json';
 
 const deprecated = [
 	{
@@ -25,15 +24,14 @@ const deprecated = [
 				attributes: {},
 			} = props;
 
-			// IMPORTANT -  If you use Fragment as wrapper then
-			// the wrapper classes don't get added to the block when saving!!!!
 			return (
-				<p>
-					{ __(
-						'{{title}} – this is a rich text block.',
-						'{{textdomain}}'
-					) }
-				</p>
+				<div { ...useBlockProps.save() }>
+					<h2>{ __( 'This is a static starter block with styles.', '{{textdomain}}' ) }</h2>
+					<p>{ __( 'Styles defined in the src/blocks/static-block-with-styles/index.js can be added to a block and styled for the frontend in src/blocks/static-block-with-styles/style.scss.', '{{textdomain}}' ) }</p>
+					<p>{ __( 'Editor only styles can be placed in src/blocks/static-block-with-styles/edit.scss.', '{{textdomain}}' ) }</p>
+					<p>{ __( 'i.e. - style name light would generate the class is-style-light that you can then use to create a unique block style.', '{{textdomain}}' ) }</p>
+					<p>{ __( 'Edit this file in src/blocks/static-block-with-styles/edit.js.', '{{textdomain}}' ) }</p>
+				</div>
 			);
 		},
 	},

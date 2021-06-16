@@ -13,7 +13,9 @@ import { __ } from '@wordpress/i18n';
  * Internal Dependencies
  */
 import './index.scss';
+{{#softwareLicensing}}
 import SoftwareLicensing from './software-licensing';
+{{/softwareLicensing}}
 import { config } from '../../../package';
 const { slug, slugCamelCase, upgradeLink } = config;
 
@@ -23,7 +25,7 @@ const WelcomeGuide = () => {
 			select( 'core/edit-post' ).isFeatureActive( `${ slugCamelCase }Guide` ),
 		[]
 	);
-
+{{#softwareLicensing}}
 	const { licenseKey, licenseStatus } = useSelect(
 		( select ) => {
 
@@ -35,7 +37,7 @@ const WelcomeGuide = () => {
 				licenseKey: pluginSettings.licenseKey,
 				licenseStatus: pluginSettings.licenseStatus };
 	} );
-
+{{/softwareLicensing}}
 	const { toggleFeature } = useDispatch( 'core/edit-post' );
 
 	if ( ! isActive ) {
@@ -51,20 +53,25 @@ const WelcomeGuide = () => {
 					{
 						image: <img src="/wp-content/plugins/{{slug}}/src/assets/img/welcome-guide-background.jpg" />,
 						content: (
-							<div className="tw-p-10 tw-pt-0">
-								<h1 className="tw-mt-0">{ __( 'Thank you for choosing the {{title}} plugin!', '{{textdomain}}' ) }</h1>
-								<p>{ __( 'Build beautiful websites faster by adding TailwindCSS utility classes to Gutenberg blocks.', '{{textdomain}}' ) }</p>
+							<div className={ `wp-block-${ slug }` } >
+							<div className="p-10 pt-0">
+								<h1 className="mt-0">{ __( 'Thank you for choosing the {{title}} plugin!', '{{textdomain}}' ) }</h1>
+								<p>{ __( 'Quickly learn how to get the most bang for your buck out using the Sidebar plugin.', '{{textdomain}}' ) }</p>
+								{{#softwareLicensing}}
 								{
 									licenseStatus !== 'valid' &&
 									<>
-										<h2 className="tw-mb-0 tw-mt-10">{ __( 'Activate Utility Plugin', '{{textdomain}}' ) }</h2>
+										<h2 className="mb-0 mt-10">{ __( 'Activate Utility Plugin', '{{textdomain}}' ) }</h2>
 										<p>{ __( 'Enter your license key below to receive plugin updates.', '{{textdomain}}' ) }</p>
-										<div className="tw-w-1/2">
+										
+										<div className="w-1/2">
 											<SoftwareLicensing label={ false } />
-									</div>
+										</div>										
 									</>
 								}
-							</div> ),
+								{{/softwareLicensing}}
+							</div>
+						</div> ),
 					},
 				] }
 			/>
