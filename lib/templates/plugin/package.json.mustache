@@ -119,8 +119,8 @@
 		"bootstrap:watch": "nodemon --watch ./src/bootstrap.scss -x \"npm run bootstrap:compile && npm run bootstrap:prepend\"",
 		{{/bootstrap}}
 		{{#tailwindcss}}
-		"tailwind:build": "NODE_ENV=production postcss --config ./postcss.config.js ./src/tailwind.css -o ./build/tailwind.css",
-		"tailwind:watch": "NODE_ENV=development postcss --config ./postcss.config.js ./src/tailwind.css -o ./build/tailwind.css -w",
+		"tailwind:build": "postcss --config ./postcss.config.js ./src/tailwind.css -o ./build/tailwind.css",
+		"tailwind:watch": "TAILWIND_MODE=watch postcss --config ./postcss.config.js ./src/tailwind.css -o ./build/tailwind.css -w",
 		{{/tailwindcss}}
 		{{#hide}}
 		"zip:old": "bestzip ./$npm_package_config_slug.zip ./src ./$npm_package_config_slug.php ./readme.txt ./LICENSE [ ./build ./languages ./includes ./vendor ]",
